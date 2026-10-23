@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README Generator</title>
+  <link rel="stylesheet" href="/app/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>GitHub README Generator</h1>
+    <p>Enter a public GitHub repository link to generate a README.</p>
+
+    <form id="repo-form">
+      <label for="repo-url">GitHub repository URL</label>
+      <input
+        id="repo-url"
+        name="repo_url"
+        type="url"
+        placeholder="https://github.com/owner/repository"
+        required
+      >
+      <button type="submit">Generate README</button>
+    </form>
+
+    <p id="status" aria-live="polite"></p>
+
+    <section id="result" hidden>
+      <h2>Generated README</h2>
+      <textarea id="readme-output" readonly></textarea>
+      <button id="download-button" type="button">Download README.md</button>
+    </section>
+  </main>
+
+  <script src="/app/script.js"></script>
+</body>
+</html>

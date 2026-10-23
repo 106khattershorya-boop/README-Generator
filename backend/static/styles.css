@@ -1,0 +1,130 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 48px 20px;
+  color: #eef4ff;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgb(37 99 235 / 28%), transparent 38%),
+    radial-gradient(ellipse at 85% 85%, rgb(14 165 233 / 15%), transparent 35%),
+    linear-gradient(135deg, #030712 0%, #07152d 52%, #020617 100%);
+}
+
+.container {
+  width: min(100%, 760px);
+  margin: 40px auto;
+  padding: 38px;
+  border: 1px solid rgb(147 197 253 / 18%);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgb(15 29 54 / 94%), rgb(5 13 29 / 96%));
+  box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #f8fbff, #8bb8ff);
+  color: transparent;
+  background-clip: text;
+}
+
+.container > p {
+  margin: 0 0 32px;
+  color: #aabbd5;
+  line-height: 1.65;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  color: #dce9ff;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid #263c60;
+  border-radius: 11px;
+  background: rgb(3 9 22 / 80%);
+  color: #eef4ff;
+  font: inherit;
+}
+
+input::placeholder {
+  color: #7184a3;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #60a5fa;
+  outline: 3px solid rgb(59 130 246 / 20%);
+}
+
+button {
+  padding: 14px 18px;
+  border: 1px solid rgb(147 197 253 / 30%);
+  border-radius: 11px;
+  background: linear-gradient(100deg, #2563eb, #168bd2);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+button:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
+#status {
+  min-height: 24px;
+  margin: 18px 0;
+  color: #aabbd5;
+}
+
+#result {
+  margin-top: 30px;
+}
+
+#result h2 {
+  color: #dce9ff;
+  font-size: 1.25rem;
+}
+
+#readme-output {
+  min-height: 320px;
+  margin: 8px 0 14px;
+  resize: vertical;
+  font-family: Consolas, "Courier New", monospace;
+  line-height: 1.55;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px 14px;
+  }
+
+  .container {
+    margin: 10px auto;
+    padding: 26px 20px;
+  }
+}

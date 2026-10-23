@@ -1,4 +1,7 @@
 from urllib.parse import urlparse
+from google.genai import types
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
 import asyncio
 import httpx
 import html
@@ -19,8 +22,13 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY is missing. Add it to backend/.env.")
 
-gemini_client = genai.Client(api_key=GEMINI_API_KEY)
-
+gemini_client = genai.Client(
+    api_key=GEMINI_API_KEY,
+    http_options=types.HttpOptions(
+        timeout=180_000,
+        retry_options=types.HttpRetryOptions(attempts=1),
+    ),
+)
 
 
 class RepoRequest(BaseModel):
@@ -111,7 +119,7 @@ async def validate_repo(request: RepoRequest):
         )
 
     existing_readme = (
-        readme_response.text[:20000]
+        readme_response.text[:6000]
         if readme_response.status_code == 200
         else None
     )
@@ -182,10 +190,14 @@ Include these sections:
 
     try:
         response = await asyncio.to_thread(
-            gemini_client.models.generate_content,
-            model="gemini-3.8-flash",
-            contents=prompt,
-        )
+        gemini_client.models.generate_content,
+        model="gemini-3.1-flash-lite",
+        contents=prompt,
+        config=types.GenerateContentConfig(
+        max_output_tokens=3000,
+        automatic_continuation=False,
+    ),
+)
     except Exception as exc:
         error_message = str(exc)
         if GEMINI_API_KEY:
@@ -213,3 +225,7 @@ Include these sections:
         media_type="text/markdown",
         headers={"Content-Disposition": 'attachment; filename="README.md"'},
     )
+
+
+static_dir = Path(__file__).resolve().parent / "static"
+app.mount("/app", StaticFiles(directory=static_dir, html=True), name="frontend")
