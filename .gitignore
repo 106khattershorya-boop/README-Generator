@@ -1,0 +1,8 @@
+# Secrets
+.env
+
+# Python virtual environment and cache
+venv/
+backend/venv/
+__pycache__/
+*.py[cod
